@@ -1,0 +1,19 @@
+/*
+   implement an algorithm to determine if all unique characters. 
+   What if you cannot use additional datastructures?
+   suppose it is ASCII code
+   The intuitive way to do this is to create a boolean array and iterate the whole string
+   However, there do have the way to save space when we suppose the string only uses the lowercase letters
+*/
+   boolean inUniqueChars(string str){
+   	int checker = 0;
+   	for (int i = 0; i < str.length(); i++){
+   		int val = str.charAt(i) - 'a';
+   		if ((checker & (1 << val)) > 0){
+   			return false;
+   		}
+   		// update checker
+   		checker |= (1 << val); 
+   	}
+   	return true;
+   }
