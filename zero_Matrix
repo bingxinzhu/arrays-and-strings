@@ -1,0 +1,76 @@
+/* 
+  write an algorithm such that if an element in an M*N matrix is 0, its entire row and column are set to 0.
+  Provide one solution that reduce space.
+  1. check if the first row and first column have any zeros, and set variables rowHasZero and columnHasZero.
+  2. iterate through the rest of the matrix, setting matrix[i][0] and matrix[0][j] to zer whnever there's a zero in matrix[i][j].
+  3. iterate through the rest of matrix, nullifying row i if there's a zero in matrix[i][0].
+  4. iterate through the rest of matrix, nullifying column j if there's a zero in matrix[0][j].
+  5. nullify the first column, if necessary(based on values from step1)
+ */
+
+  void setZero(int[][] matrix) {
+  	boolean rowHasZero = false;
+  	boolean columnHasZero = false;
+
+  	// check if first row has a zero
+  	for(int j = 0; j < matrix[0].length; j++) {
+  		if(matrix[0][j] == 0) {
+  			rowHasZero = true;
+  			break;
+  		}
+  	}
+
+  	// check if first column has zero
+  	for(int i = 0; i < matrix.length; i++) {
+  		if(matrix[i][0] == 0) {
+  			colHasZero = true;
+  			break;
+  		}
+  	}
+
+  	// check for zeros in the rest of the array
+  	for(int i = 1 i < matrix.length; i++){
+  		for(int j = 1; j < matrix[0].length; j++){
+  			if(matrix[i][j] == 0){
+  				matrix[i][0] = 0;
+  				matrix[0][j] = 0;
+  			}
+  		}
+  	}
+
+  	//Nullify row based on values in first column
+  	for(int i = 1; i < matrix.length; i++) {
+  		if(matrix[i][0] == 0) {
+  			nullifyRow(matrix, i);
+  		}
+  	}
+
+  	//Nullify column based on values in first row
+  	for(int j = 1; j < matrix[0].length; j++) {
+  		if(matrix[0][j] == 0){
+  			nullifyColumn(matrix,j);
+  		}
+  	}
+
+  	// Nullify first row
+  	if(rowHasZero) {
+  		nullifyRow(matrix,0);
+  	}
+  	// Nullify first column
+  	if(columnHasZero) {
+  		nullifyColumn(matrix,0);
+  	}
+
+  	void nullifyRow(int[][] matrix, int row) {
+  		for(int j = 0; j < matrix[0].length; j++) {
+  			matrix[row][j] = 0;
+  		}
+  	}
+
+  	void nullifyColumn(int[][] matrix, int column) {
+  		for(int i = 0; i < matrix.lengthl; i++) {
+  			matrix[i][column] = 0;
+  		}
+  	}
+ }  
+
